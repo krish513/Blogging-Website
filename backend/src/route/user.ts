@@ -21,14 +21,14 @@ userRouter.post("/signup", async(c)=>{
         datasourceUrl: c.env?.DATABASE_URL,
     }).$extends(withAccelerate())
 
-    const existingUser = await prisma.user.findFirst({
-        where: {
-            email: signupBody.email
-        }
-    })
-    if(existingUser){
-        return c.json({msg: "email already registered please signin"})
-    }
+    // const existingUser = await prisma.user.findFirst({
+    //     where: {
+    //         email: signupBody.email
+    //     }
+    // })
+    // if(existingUser){
+    //     return c.json({msg: "email already registered please signin"})
+    // }
 
     const res = await prisma.user.create({
         data: {
@@ -39,7 +39,7 @@ userRouter.post("/signup", async(c)=>{
     })
     return c.json({
         msg: "user created",
-        user : res
+        id: res.id
      })
 })
 

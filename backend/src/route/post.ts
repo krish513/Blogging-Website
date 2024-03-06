@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { createPostInput } from "@krishna513/common-app";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 export const postRouter = new Hono<{
     Bindings: {
@@ -21,7 +22,19 @@ postRouter.get("/", async(c)=>{
     }).$extends(withAccelerate());
 
     try{
-        const allPost = await prisma.post.findMany();
+        const allPost = await prisma.post.findMany({
+            select: {
+                title : true,
+                content : true,
+                id : true,
+                published: true,
+                author : {
+                    select: {
+                        name : true
+                    }
+                }
+            }
+        });
         return c.json({allPosts : allPost})
     }
     catch(err){
@@ -30,7 +43,7 @@ postRouter.get("/", async(c)=>{
     
 })
 
-postRouter.post("/", async(c)=>{
+postRouter.post("/", authMiddleware, async(c)=>{
     const prisma = new PrismaClient({
         datasourceUrl : c.env?.DATABASE_URL
     }).$extends(withAccelerate())
@@ -61,7 +74,7 @@ postRouter.post("/", async(c)=>{
     }
 })
 
-postRouter.put("/blog", async(c)=>{
+postRouter.put("/blog", authMiddleware, async(c)=>{
     const prisma = new PrismaClient({
         datasourceUrl: c.env?.DATABASE_URL
     }).$extends(withAccelerate());
@@ -88,7 +101,7 @@ postRouter.put("/blog", async(c)=>{
     }
 })
 
-postRouter.put("/blog/publish", async(c)=>{
+postRouter.put("/blog/publish", authMiddleware, async(c)=>{
     const prisma = new PrismaClient({
         datasourceUrl: c.env?.DATABASE_URL
     }).$extends(withAccelerate());
@@ -116,9 +129,20 @@ postRouter.get("/blog/:id", async(c)=>{
     }).$extends(withAccelerate());
     const BlogId = c.req.param("id");
     try{
-        const blog = await prisma.post.findUnique({
+        const blog = await prisma.post.findFirst({
             where: {
                 id: BlogId
+            },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                published: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
             }
         })
         return c.json({blog})
