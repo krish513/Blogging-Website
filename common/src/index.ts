@@ -22,3 +22,4 @@ export const createPostInput = z.object({
 
 export type CreatePostType = z.infer<typeof createPostInput>;
 
+
