@@ -2,6 +2,7 @@ import { useState } from "react"
 import { GenNavbar } from "../components/GenNavbar"
 import axios from "axios"
 import { BACKEND_URL } from "../config"
+import { useNavigate } from "react-router-dom"
 
 export const CreatePost = () => {
     const [input, setInput] = useState({
@@ -10,6 +11,7 @@ export const CreatePost = () => {
     })
     const [newBlogId, setNewBlogId] = useState("")
     // const [loading, setLoading] = useState(true)
+    const navigate = useNavigate();
 
     async function saveHandler(){
         try{
@@ -37,6 +39,7 @@ export const CreatePost = () => {
             })
             // setNewBlogId(res.data.id);
             // setLoading(false)
+            navigate("/blogs")
         }
         catch(err){
             console.log(err)

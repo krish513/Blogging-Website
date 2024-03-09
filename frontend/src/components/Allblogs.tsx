@@ -1,23 +1,32 @@
 
-import { BlogDisplayCard } from "./BlogDisplayCard";
 import { useGetBlogs } from "../hooks";
+import { useNavigate } from "react-router-dom";
 
 export function Allblogs(){
 
   const {blogs, loading} = useGetBlogs();
   console.log(blogs)
+  const navigate = useNavigate()
 
-  if(loading){
-    return <div>
-        Loading....
-    </div>
-  }
+    if(loading){
+        return <div>
+            Loading....
+        </div>
+    }
+
+    function clickHandler(id:string){
+        navigate(`/blog/${id}`)
+    }
 
     return <div className="w-[85%] mx-auto flex">
         {/* left div */}
         <div className="w-[60%] flex flex-col gap-5 border">
             {blogs.filter(filteredPost => filteredPost.published === true).
-            map(post => <BlogDisplayCard title = {post.title} content={post.content}/>)}
+            map(post => <div onClick={()=> clickHandler(post.id)} className=" p-4 cursor-pointer">
+                <p className=" text-sm">{post.author.name}</p>
+                <p className=" text-xl font-bold">{post.title}</p>
+                <p className=" text-sm text-slate-500">{post.content.length <= 50 ? post.content : post.content.substring(0, 200)+"..."}</p>
+            </div>)}
         </div>
         {/* right div */}
         <div className="w-[40%] p-6 flex flex-col gap-3">

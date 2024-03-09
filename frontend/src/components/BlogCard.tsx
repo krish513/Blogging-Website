@@ -4,17 +4,18 @@ interface BlogCardProps {
     id: string
     author: string,
     title: string,
-    content: string
+    content: string,
+    user: string
 }
 
 
 
-export const BlogCard = ({id, author,title,content}:BlogCardProps) => {
+export const BlogCard = ({id, author,title,content,user}:BlogCardProps) => {
 
     const navigate = useNavigate()
 
     function clickHandler(id:string){
-        navigate(`/blog/${id}`)
+        navigate(`/blog/${id}`, {state: {user}})
     }
 
     return <div className="w-[85%] flex mx-auto">

@@ -3,26 +3,35 @@ import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { BACKEND_URL } from "../config"
+import { useSetRecoilState } from "recoil"
+import { userAtom } from "../store/atom"
 
 export const Signin = () =>{
     const [formInput, setFormInput] = useState<SigninType>({
         email: "",
-        password: "String"
+        password: ""
     })
-
+    const setUser = useSetRecoilState<string>(userAtom);
+    console.log("setuser" + setUser)
     const navigate = useNavigate();
 
     async function signinHandler(){
         try{
-            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`,formInput); // {} not required
-        console.log(response)
-        const jwt = response.data.token;
-        console.log(jwt)
-        localStorage.setItem("token", `Bearer ${jwt}`)
-        navigate("/home")
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`,{
+                email: formInput.email,
+                password: formInput.password
+            }); // {} not required
+            console.log(response)
+            const {name, token} = response.data;
+            console.log(name)
+            setUser(name)
+            localStorage.setItem("username", name)
+            localStorage.setItem("token", `Bearer ${token}`)
+            navigate("/blogs")
         }
-        catch(err){
-            console.log(err)
+            catch(err){
+                console.log(err)
+                return;
         }
     }
 

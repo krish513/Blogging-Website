@@ -2,14 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../config";
 
-interface Blogs {
+export interface Blogs {
     author: {
         name: string
     },
     id: string
     title: string,
     content: string,
-    published?: boolean
+    published?: boolean,
+    createdAt?: string;
 }
 
 export const useBlog = (id:string) => {

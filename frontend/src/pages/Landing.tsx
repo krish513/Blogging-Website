@@ -1,8 +1,10 @@
+
 import { Allblogs } from "../components/Allblogs";
 import { NavLanding } from "../components/NavLanding";
 import { Trending } from "../components/Trending";
 
 export function Landing(){
+    
     return <div className="w-full">
              <NavLanding/>
             {/* body-1 */}

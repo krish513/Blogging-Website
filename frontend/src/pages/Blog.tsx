@@ -1,7 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useBlog } from "../hooks"
 import { GenNavbar } from "../components/GenNavbar";
 import { CiEdit } from "react-icons/ci";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "../store/atom";
 
 
 
@@ -9,6 +11,8 @@ export const Blog = () =>{
     const {id} = useParams<{id?: string}>()
     const {loading, blog} = useBlog(id || "");
     console.log(blog?.author)
+
+    const user = useRecoilValue(userAtom)
 
     const navigate = useNavigate();
 
@@ -18,16 +22,26 @@ export const Blog = () =>{
         </div>
     }
 
+    const paragraphs = blog?.content.split("\n\n") || [];
+
     return <div className="w-full">
-        <GenNavbar onclick={()=> navigate("/create")} isCreate = {true} user = {blog?.author.name}/>
+        <GenNavbar onclick={()=> navigate("/create")} isCreate = {true} user = {user}/>
         <div className="w-[85%] mx-auto flex">
             <div className="w-[70%] p-5 flex flex-col gap-2">
                 <p className=" text-4xl font-bold">{blog?.title}</p>   
                 <div className="flex gap-3">
                     <p className="text-sm text-slate-400">Published on</p>
-                    <CiEdit onClick={()=> navigate('/create')} className=" text-xl cursor-pointer"/>
+                    {/* conditional edit functionality added, logged in user can edit only his blogs  */}
+                    {user === blog?.author.name && (
+                        <Link 
+                            to={`/edit/${id}`}
+                            state={{ blog: blog }}>
+                        <CiEdit className=" text-xl cursor-pointer"/>
+                        </Link>)}
                 </div>
-                <p>{blog?.content}</p>
+                {paragraphs.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                ))}
             </div>
             <div className="w-[30%] p-5 flex flex-col gap-2">
                 <p>Author</p>
