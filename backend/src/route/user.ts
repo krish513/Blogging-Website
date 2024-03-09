@@ -59,6 +59,10 @@ userRouter.post("/signin", async(c)=>{
         where: {
             email : signinBody.email,
             password : signinBody.password
+        },
+        select: {
+            name: true,
+            id: true
         }
     })
     if (!res){
@@ -68,7 +72,8 @@ userRouter.post("/signin", async(c)=>{
     const token = await Jwt.sign(userId, jwt_secret)
     return c.json({
         msg: "welcome",
-        token: token 
+        token: token,
+        name: res.name 
      })
 })
 

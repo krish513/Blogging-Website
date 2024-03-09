@@ -32,7 +32,8 @@ postRouter.get("/", async(c)=>{
                     select: {
                         name : true
                     }
-                }
+                },
+                createdAt: true
             }
         });
         return c.json({allPosts : allPost})
@@ -81,6 +82,7 @@ postRouter.put("/blog", authMiddleware, async(c)=>{
 
     const updateBody = await c.req.json();
     const userId = c.get("userId")
+    console.log("updated body" + updateBody)
     try{
         const updatedPost = await prisma.post.update({
             where: {
@@ -90,11 +92,18 @@ postRouter.put("/blog", authMiddleware, async(c)=>{
             data: {
                 title: updateBody.title,
                 content: updateBody.content
+            },
+            select: {
+                id:true,
+                title: true,
+                content: true,
+                createdAt: true
             }
         })
         return c.json({
             msg: "post updated", 
-            id: updatedPost.id})
+            updatedPost
+        })
     }
     catch(err){
         console.log("error while updating post "+err)
@@ -142,7 +151,8 @@ postRouter.get("/blog/:id", async(c)=>{
                     select: {
                         name: true
                     }
-                }
+                },
+                createdAt: true
             }
         })
         return c.json({blog})
