@@ -2,18 +2,25 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useBlog } from "../hooks"
 import { GenNavbar } from "../components/GenNavbar";
 import { CiEdit } from "react-icons/ci";
-import { useRecoilValue } from "recoil";
-import { userAtom } from "../store/atom";
+import { useEffect, useState } from "react";
 
 
 
 export const Blog = () =>{
     const {id} = useParams<{id?: string}>()
+    const location = useLocation();
+
+    useEffect(() => {
+        if ( location.state ) {
+            const { user } = location.state;
+            setUser(user)
+        }
+    }, [location.state]);
+
     const {loading, blog} = useBlog(id || "");
+    const [user, setUser] = useState("")
     console.log(blog?.author)
-
-    const user = useRecoilValue(userAtom)
-
+    
     const navigate = useNavigate();
 
     if(loading){
@@ -21,6 +28,8 @@ export const Blog = () =>{
             Loading....
         </div>
     }
+
+    
 
     const paragraphs = blog?.content.split("\n\n") || [];
 
@@ -35,7 +44,7 @@ export const Blog = () =>{
                     {user === blog?.author.name && (
                         <Link 
                             to={`/edit/${id}`}
-                            state={{ blog: blog }}>
+                            state={{ blog: blog, user }}>
                         <CiEdit className=" text-xl cursor-pointer"/>
                         </Link>)}
                 </div>
