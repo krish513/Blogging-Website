@@ -59,7 +59,7 @@ export const useAuth = () => {
                 Authorization: localStorage.getItem("token")
             }
         })
-        .then(response => {
+        .then(() => {
                 setIsLoggedin(true);
                 setLoading(false)  
         })
