@@ -5,6 +5,7 @@ import { useGetBlogs } from "../hooks";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userAtom } from "../store/atom";
 import { useEffect } from "react";
+import { Loading } from "../components/Loading";
 
 
 
@@ -43,7 +44,7 @@ export const Blogs = () => {
 
     if(loading){
         return <div>
-            Loading.......
+            <Loading/>
         </div>
     }
 

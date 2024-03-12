@@ -48,3 +48,25 @@ export const useGetBlogs = () => {
         loading
     }
 } 
+
+export const useAuth = () => {
+    const [isLoggedin, setIsLoggedin] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(()=>{
+        axios.get(`${BACKEND_URL}/api/v1/user`,{
+            headers: {
+                Authorization: localStorage.getItem("token")
+            }
+        })
+        .then(response => {
+                setIsLoggedin(true);
+                setLoading(false)  
+        })
+    },[])
+
+    return {
+        loading,
+        isLoggedin
+    }
+}

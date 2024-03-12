@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 interface GenNavbarProps {
     user? : string;
@@ -10,7 +11,7 @@ export const GenNavbar = ({isCreate,user,onclick}:GenNavbarProps) => {
 
     return <div className="w-full border flex items-center">
         <div className=" w-[85%] flex justify-between items-center mx-auto p-5">
-            <p>Medium</p>
+            <Link to="/blogs">Medium</Link>
             <div className="flex gap-5 justify-center">
                 {isCreate ? (
                 <div onClick={onclick} className="border rounded-full w-8 h-8 flex justify-center pt-0.5 cursor-pointer">+</div>

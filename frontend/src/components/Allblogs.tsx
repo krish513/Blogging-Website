@@ -6,6 +6,17 @@ export function Allblogs(){
 
   const {blogs, loading} = useGetBlogs();
   console.log(blogs)
+
+  const sortedBlogs = blogs.slice().sort((a,b)=>{
+    const dateA = a.createdAt ? new Date(a.createdAt) : null;
+    const dateB = b.createdAt ? new Date(b.createdAt) : null;
+
+    if(!dateA || !dateB){
+        return 0;
+    }
+    return dateB.getTime() - dateA.getTime();
+  })
+
   const navigate = useNavigate()
 
     if(loading){
@@ -21,7 +32,7 @@ export function Allblogs(){
     return <div className="w-[85%] mx-auto flex">
         {/* left div */}
         <div className="w-[60%] flex flex-col gap-5 border">
-            {blogs.filter(filteredPost => filteredPost.published === true).
+            {sortedBlogs.filter(filteredPost => filteredPost.published === true).
             map(post => <div onClick={()=> clickHandler(post.id)} className=" p-4 cursor-pointer">
                 <p className=" text-sm">{post.author.name}</p>
                 <p className=" text-xl font-bold">{post.title}</p>

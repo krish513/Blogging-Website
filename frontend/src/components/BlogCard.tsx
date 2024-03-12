@@ -39,7 +39,7 @@ export const BlogCard = ({id, author,title,content,user}:BlogCardProps) => {
                     <p className="text-sm text-slate-700">{content.length > 150 ? content.substring(0,150)+ "..." : content}</p>
                 </div>
                 <div className=" pt-3 pb-3 flex justify-between items-center">
-                    <p className=" text-sm text-slate-400">{Math.ceil(content.length / 100) === 1 ? Math.ceil(content.length / 100) + " minute read" : Math.ceil(content.length / 100) + " minutes read"}</p>
+                    <p className=" text-sm text-slate-400">{Math.ceil(content.length / 1000) === 1 ? Math.ceil(content.length / 1000) + " minute read" : Math.ceil(content.length / 1000) + " minutes read"}</p>
                    
                 </div>
             </div> 

@@ -4,12 +4,16 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Jwt } from "hono/utils/jwt";
 import { signinInput, signupInput } from "@krishna513/common-app";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 export const userRouter = new Hono<{
 	Bindings: {
 		DATABASE_URL: string,
         JWT_SECRET: string
-	}
+	}, 
+    Variables: {
+        userId: string
+    }
 }>();
 userRouter.post("/signup", async(c)=>{
     const signupBody = await c.req.json();
@@ -75,5 +79,33 @@ userRouter.post("/signin", async(c)=>{
         token: token,
         name: res.name 
      })
+})
+
+userRouter.get("/", authMiddleware, async(c) =>{
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+
+    const userId = c.get("userId");
+
+    try{
+        const user = await prisma.user.findFirst({
+            where: {
+                id: userId
+            },
+            select: {
+                name: true,
+                email: true
+            }
+        })
+        return c.json({
+            msg: "User found",
+            user
+        })
+    }
+    catch(err){
+
+    }
+    
 })
 

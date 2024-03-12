@@ -10,7 +10,7 @@ export function NavLanding() {
                     <div className="flex gap-4 items-center">
                         <p className="text-sm font-light">Our story</p>
                         <p className="text-sm font-light">Membership</p>
-                        <p className="text-sm font-light">Write</p>
+                        <Link to="/signin" className="text-sm font-light">Write</Link>
                         <Link className="text-sm font-light" to="/signin">Sign in</Link>
                         <Link className=" bg-black text-white text-sm font-light p-2 pl-3 pr-3 rounded-3xl" to="/signup">
                             Get started

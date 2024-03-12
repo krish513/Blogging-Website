@@ -3,6 +3,7 @@ import { useBlog } from "../hooks"
 import { GenNavbar } from "../components/GenNavbar";
 import { CiEdit } from "react-icons/ci";
 import { useEffect, useState } from "react";
+import { Loading } from "../components/Loading";
 
 
 
@@ -25,7 +26,7 @@ export const Blog = () =>{
 
     if(loading){
         return <div>
-            Loading....
+            <Loading/>
         </div>
     }
 

@@ -8,6 +8,8 @@ import { CreatePost } from "./pages/CreatePost"
 import { EditBlog } from "./pages/EditBlog"
 import { RecoilRoot, useRecoilValue } from "recoil"
 import { userAtom } from "./store/atom"
+import { useAuth } from "./hooks"
+import { Loading } from "./components/Loading"
 
 // ProtectedRoute component for restricted routes
 // export const ProtectedRoute = ({ Component }: any) => {
@@ -19,20 +21,33 @@ import { userAtom } from "./store/atom"
 // };
 
 const PrivateRoute = () => {
-  let auth = true;
+  const {isLoggedin, loading} = useAuth();
+  console.log("in app" + isLoggedin)
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
-    auth ? <Outlet/> : <Navigate to= "/"/>
+    isLoggedin ? <Outlet/> : <Navigate to= "/"/>
   )
 }
 
 function App() {
+  const {isLoggedin, loading} = useAuth();
+
+  console.log("in app2" + isLoggedin)
+
+  if(loading){
+    return <Loading/>
+  }
+
   return (
     <>
       <RecoilRoot>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element= {<Landing/>}/>
+            <Route path="/" element= {isLoggedin ? <Blogs/> : <Landing/>}/>
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/signin" element={<Signin/>}/>
             <Route element= {<PrivateRoute/>}>
@@ -41,6 +56,7 @@ function App() {
               <Route path="/edit/:id" element={<EditBlog/>}/>
             </Route>
             <Route path="/blog/:id" element={<Blog/>}/>
+            
             
           </Routes>
         </BrowserRouter>
