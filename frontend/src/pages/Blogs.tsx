@@ -1,8 +1,8 @@
-import { useActionData, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BlogCard } from "../components/BlogCard"
 import { GenNavbar } from "../components/GenNavbar"
 import { useGetBlogs } from "../hooks";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom";
 import { useEffect } from "react";
 import { Loading } from "../components/Loading";

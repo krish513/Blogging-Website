@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Outlet, Route, RouteProps, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom"
 import { Landing } from "./pages/Landing"
 import { Signup } from "./pages/Signup"
 import { Signin } from "./pages/Signin"
@@ -6,10 +6,9 @@ import { Blogs } from "./pages/Blogs"
 import { Blog } from "./pages/Blog"
 import { CreatePost } from "./pages/CreatePost"
 import { EditBlog } from "./pages/EditBlog"
-import { RecoilRoot, useRecoilValue } from "recoil"
-import { userAtom } from "./store/atom"
 import { useAuth } from "./hooks"
 import { Loading } from "./components/Loading"
+import { RecoilRoot } from "recoil";
 
 // ProtectedRoute component for restricted routes
 // export const ProtectedRoute = ({ Component }: any) => {

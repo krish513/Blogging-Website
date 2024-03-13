@@ -1,4 +1,4 @@
-import { SigninType, SignupType } from "@krishna513/common-app"
+import { SignupType } from "@krishna513/common-app"
 import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
