@@ -8,6 +8,7 @@ export const CreatePost = () => {
         title: "",
         content: ""
     })
+    
     const [newBlogId, setNewBlogId] = useState("")
     // const [loading, setLoading] = useState(true)
     const navigate = useNavigate();
