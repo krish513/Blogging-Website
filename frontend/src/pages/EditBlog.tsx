@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { GenNavbar } from "../components/GenNavbar"
 import axios from "axios"
-import { BACKEND_URL } from "../config"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 export const EditBlog = () => {
@@ -27,7 +26,7 @@ export const EditBlog = () => {
 
     async function publishHandler(){
         try{
-            await axios.put(`${BACKEND_URL}/api/v1/post/blog`,{
+            await axios.put(`https://backend.krishsarma03.workers.dev/api/v1/post/blog`,{
                 id: id,
                 title: input.title,
                 content: input.content

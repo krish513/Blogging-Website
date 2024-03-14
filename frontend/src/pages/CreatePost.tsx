@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { GenNavbar } from "../components/GenNavbar"
 import axios from "axios"
-import { BACKEND_URL } from "../config"
 import { useNavigate } from "react-router-dom"
 
 export const CreatePost = () => {
@@ -15,7 +14,7 @@ export const CreatePost = () => {
 
     async function saveHandler(){
         try{
-            const res = await axios.post(`${BACKEND_URL}/api/v1/post`,input,{
+            const res = await axios.post(`https://backend.krishsarma03.workers.dev/api/v1/post`,input,{
                 headers: {
                     Authorization: localStorage.getItem("token")
                 }
@@ -30,7 +29,7 @@ export const CreatePost = () => {
 
     async function publishHandler(){
         try{
-            await axios.put(`${BACKEND_URL}/api/v1/post/blog/publish`,{
+            await axios.put(`https://backend.krishsarma03.workers.dev/api/v1/post/blog/publish`,{
                 id: newBlogId
             },{
                 headers: {

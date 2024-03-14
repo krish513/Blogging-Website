@@ -2,7 +2,6 @@ import { SignupType } from "@krishna513/common-app"
 import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { BACKEND_URL } from "../config"
 
 export const Signup = () =>{
     const [formInput, setFormInput] = useState<SignupType>({
@@ -15,7 +14,7 @@ export const Signup = () =>{
 
     async function signupHandler(){
         try{
-            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signup`,formInput); // {} not required
+            const response = await axios.post(`https://backend.krishsarma03.workers.dev/api/v1/user/signup`,formInput); // {} not required
         console.log(response)
         navigate("/signin")
         }

@@ -2,7 +2,6 @@ import { SigninType } from "@krishna513/common-app"
 import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { BACKEND_URL } from "../config"
 import { useSetRecoilState } from "recoil"
 import { userAtom } from "../store/atom"
 
@@ -17,7 +16,7 @@ export const Signin = () =>{
 
     async function signinHandler(){
         try{
-            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`,{
+            const response = await axios.post(`https://backend.krishsarma03.workers.dev/api/v1/user/signin`,{
                 email: formInput.email,
                 password: formInput.password
             }); // {} not required

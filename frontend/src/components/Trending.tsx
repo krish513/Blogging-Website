@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react";
 import { TrendingPostCard } from "./TendingPostCard";
 import { IoIosTrendingUp } from "react-icons/io";
-import { BACKEND_URL } from "../config";
+
 
 interface Post {
     id?: string
@@ -22,7 +22,7 @@ export function Trending(){
 
     async function getallpost(){
         try{
-            const res = await axios.get(`${BACKEND_URL}/api/v1/post`)
+            const res = await axios.get(`https://backend.krishsarma03.workers.dev/api/v1/post`)
             console.log(res.data.allPosts)
             setTrendingPosts(res.data.allPosts)
         }
