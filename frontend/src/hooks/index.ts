@@ -18,7 +18,7 @@ export const useBlog = (id:string) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
-        axios.get(`${BACKEND_URL}/api/v1/post/blog/${id}`)
+        axios.get(`https://backend.krishsarma03.workers.dev/api/v1/post/blog/${id}`)
             .then(response=> {
                 setBlog(response.data.blog)
                 setLoading(false)
@@ -54,7 +54,7 @@ export const useAuth = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
-        axios.get(`${BACKEND_URL}/api/v1/user`,{
+        axios.get(`https://backend.krishsarma03.workers.dev/api/v1/user`,{
             headers: {
                 Authorization: localStorage.getItem("token")
             }
