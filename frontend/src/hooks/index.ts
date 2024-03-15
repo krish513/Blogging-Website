@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { BACKEND_URL } from "../config";
 
 export interface Blogs {
     author: {
@@ -36,7 +35,7 @@ export const useGetBlogs = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
-        axios.get(`${BACKEND_URL}/api/v1/post`)
+        axios.get(`https://backend.krishsarma03.workers.dev/api/v1/post`)
             .then(response=> {
                 setBlogs(response.data.allPosts)
                 setLoading(false)
