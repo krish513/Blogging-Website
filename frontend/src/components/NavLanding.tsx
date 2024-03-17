@@ -5,7 +5,7 @@ export function NavLanding() {
     return <nav className="flex bg-yellow-500 border-b border-black fixed top-0 w-full z-10">
                 <div className="w-[85%] flex mx-auto justify-between p-4 ">
                     <div>
-                        <p className=" text-3xl">Medium</p>
+                        <p className=" text-3xl">InsightfulEcho</p>
                     </div>
                     <div className="flex gap-4 items-center">
                         <p className="text-sm font-light">Our story</p>

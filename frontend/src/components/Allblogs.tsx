@@ -29,9 +29,9 @@ export function Allblogs(){
         navigate(`/blog/${id}`)
     }
 
-    return <div className="w-[85%] mx-auto flex">
+    return <div className="w-[85%] mx-auto flex pt-5">
         {/* left div */}
-        <div className="w-[60%] flex flex-col gap-5 border">
+        <div className="w-[60%] flex flex-col gap-5">
             {sortedBlogs.filter(filteredPost => filteredPost.published === true).
             map(post => <div onClick={()=> clickHandler(post.id)} className=" p-4 cursor-pointer">
                 <p className=" text-sm">{post.author.name}</p>
