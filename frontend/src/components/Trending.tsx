@@ -1,5 +1,3 @@
-import axios from "axios"
-import { useEffect, useState } from "react";
 import { TrendingPostCard } from "./TendingPostCard";
 import { IoIosTrendingUp } from "react-icons/io";
 import { useGetBlogs } from "../hooks";
