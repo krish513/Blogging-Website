@@ -5,17 +5,28 @@ interface BlogCardProps {
     author: string,
     title: string,
     content: string,
-    user: string
+    user: string,
+    created?: string 
 }
 
 
 
-export const BlogCard = ({id, author,title,content,user}:BlogCardProps) => {
+export const BlogCard = ({id, author,title,content,user, created}:BlogCardProps) => {
 
     const navigate = useNavigate()
 
     function clickHandler(id:string){
         navigate(`/blog/${id}`, {state: {user}})
+    }
+
+    let formattedDate: string | null = null;
+    if(created){
+        const date = new Date(created);
+        formattedDate = date.toLocaleDateString('en-US',{
+           month: "short",
+           day: "2-digit",
+           year: "numeric" 
+        })
     }
 
     return <div className="w-[85%] flex mx-auto">
@@ -31,7 +42,7 @@ export const BlogCard = ({id, author,title,content,user}:BlogCardProps) => {
                 
                     </div>
                     <span className=" text-sm text-slate-400">
-                        Jul 19,2023
+                        {`Published on ${formattedDate}`}
                     </span>
                 </div>
                 <div className="flex flex-col gap-3">

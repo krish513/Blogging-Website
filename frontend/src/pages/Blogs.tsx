@@ -50,6 +50,6 @@ export const Blogs = () => {
 
     return <div className="w-full">
         <GenNavbar onclick={()=> navigate("/create")} isCreate = {true} user = {username}/>
-        {sortedBlogs.map(blog => <BlogCard key={blog.id} id={blog.id} user= {username} author={blog.author.name} title= {blog.title} content = {blog.content} />)}
+        {sortedBlogs.map(blog => <BlogCard key={blog.id} id={blog.id} user= {username} author={blog.author.name} title= {blog.title} content = {blog.content} created = {blog.createdAt} />)}
     </div>
 }
