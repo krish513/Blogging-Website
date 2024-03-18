@@ -35,7 +35,7 @@ export const EditBlog = () => {
                     Authorization: localStorage.getItem("token")
                 }
             })
-            navigate(`/blog/${id}`)
+            navigate(`/blog/${id}`, {state: {user}})
         }
         catch(err){
             console.log(err)
