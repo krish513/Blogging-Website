@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { GenNavbar } from "../components/GenNavbar"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -8,6 +8,7 @@ export const CreatePost = () => {
         title: "",
         content: ""
     })
+    const [user, setUser] = useState("")
     
     const [newBlogId, setNewBlogId] = useState("")
     // const [loading, setLoading] = useState(true)
@@ -46,8 +47,13 @@ export const CreatePost = () => {
         }  
     }
 
+    useEffect(()=>{
+        let userFromLocalStorage: string = localStorage.getItem("username") ?? '';
+        setUser(userFromLocalStorage);
+    },[])
+
     return <div>
-        <GenNavbar isCreate = {false} onclick={publishHandler} />
+        <GenNavbar isCreate = {false} onclick={publishHandler} user={user} />
         <div className="w-[85%] mx-auto p-5">
             <div>
                 <input onChange={(e) => setInput({
