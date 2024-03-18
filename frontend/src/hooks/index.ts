@@ -58,7 +58,13 @@ export const useAuth = () => {
                 Authorization: localStorage.getItem("token")
             }
         })
-        .then(() => {
+        .then((response) => {
+                console.log("db call success")
+                if(response.data.msg === "Authentication failed"){
+                    setLoading(false)
+                    setIsLoggedin(false);
+                    return;
+                }
                 setIsLoggedin(true);
                 setLoading(false)  
         })

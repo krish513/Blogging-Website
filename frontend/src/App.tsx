@@ -46,7 +46,7 @@ function App() {
       <RecoilRoot>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element= {<Landing/>}/>
+            <Route path="/" element= {isLoggedin ? <Blogs/> : <Landing/>}/>
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/signin" element={<Signin/>}/>
             <Route element= {<PrivateRoute/>}>
@@ -55,8 +55,6 @@ function App() {
               <Route path="/edit/:id" element={<EditBlog/>}/>
             </Route>
             <Route path="/blog/:id" element={<Blog/>}/>
-            
-            
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
